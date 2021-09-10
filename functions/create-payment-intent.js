@@ -34,6 +34,34 @@ exports.handler = async (event, context) => {
   }
 
   // Stripe payment processing begins here
+
+  try {
+    await stripe.customers
+      .create({
+        email: data.stripeEmail,
+        source: data.stripeToken
+      })
+      .then(customer => {
+        console.log(
+          `starting the charges, amt: ${data.stripeAmt}, email: ${data.stripeEmail}`
+        )
+        return stripe.charges
+          .create(
+            {
+              currency: "usd",
+              amount: data.stripeAmt,
+              receipt_email: data.stripeEmail,
+              customer: customer.id,
+              description: "Sample Charge"
+            },
+            {
+              idempotency_key: data.stripeIdempotency
+            }
+          )
+          .then(result => {
+            console.log(`Charge created: ${result}`)
+          })
+      })
   try {
     // Always calculate the order amount on your server to prevent customers
     // from manipulating the order amount from the client

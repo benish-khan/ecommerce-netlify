@@ -26,7 +26,7 @@
         class="stripe-card"
         id="card"
         :class="{ complete }"
-        stripe="pk_test_8ssZgwB2PiH0ajJksD2gVbsG00u7Y3IDPv"
+        stripe="pk_test_51JXshNK3mnZzBz0ZOqlcP0333l9QFy7WJntDZi0gBrzPUMUIln4Vd7dh7FXl7a7mbKI4VLvN1XsEgK84nr0wR4Ai00Ppqz0r88"
         :options="stripeOptions"
         @change="complete = $event.complete"
       />
